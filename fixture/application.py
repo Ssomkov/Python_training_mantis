@@ -1,9 +1,7 @@
 from selenium import webdriver
 
-# from fixture.contact import ContactHelper
-# from fixture.group import GroupHelper
 from fixture.session import SessionHelper
-from fixture.task import TaskHelper
+from fixture.project import ProjectHelper
 
 
 class Application:
@@ -18,7 +16,7 @@ class Application:
         else:
             raise ValueError("Unrecognaized browser %s" % browser)
         self.session = SessionHelper(self)
-        self.task = TaskHelper(self)
+        self.project = ProjectHelper(self)
         self.base_url = base_url
 
     def is_valid(self):
