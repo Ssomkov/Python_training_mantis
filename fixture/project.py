@@ -26,6 +26,18 @@ class ProjectHelper:
         wd.find_element_by_xpath("//a[contains(text(), 'Продолжить')]").click()
         self.project_cache = None
 
+    def select_project_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_xpath("//tr/td[1]/a")[index].click()
+
+    def delete_project_by_index(self, index):
+        wd = self.app.wd
+        self.open_projects_page()
+        self.select_project_by_index(index)
+        wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
+        wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
+        self.project_cache = None
+
     def set_fields(self, project):
         wd = self.app.wd
         self.set_text_field("name", project.name)

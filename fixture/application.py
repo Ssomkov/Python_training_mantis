@@ -31,4 +31,5 @@ class Application:
 
     def open_home_page(self):
         wd = self.wd
+        wd.implicitly_wait(10)
         wd.get(self.base_url)
