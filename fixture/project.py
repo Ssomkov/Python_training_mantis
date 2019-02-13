@@ -20,6 +20,7 @@ class ProjectHelper:
 
     def create(self, project):
         wd = self.app.wd
+        self.open_projects_page()
         wd.find_element_by_xpath("//button[contains(text(), 'Создать новый проект')]").click()
         self.set_fields(project)
         wd.find_element_by_xpath("//input[@value='Добавить проект']").click()
@@ -37,6 +38,14 @@ class ProjectHelper:
         wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
         wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
         self.project_cache = None
+
+    def delete_project(self, project):
+        wd = self.app.wd
+        self.open_projects_page()
+        wd.find_element_by_link_text(project.name).click()
+        wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
+        wd.find_element_by_xpath("//input[@value='Удалить проект']").click()
+        self.contact_cache = None
 
     def set_fields(self, project):
         wd = self.app.wd
@@ -69,6 +78,7 @@ class ProjectHelper:
                 status = elements[1].text
                 view_state = elements[3].text
                 description = elements[4].text
+                id = element.find_element_by_css_selector('a').get_attribute("href").split('=')[-1]
                 self.project_cache.append(
-                    Project(name=name, description=description, status=status, view_state=view_state))
+                    Project(id=id, name=name, description=description, status=status, view_state=view_state))
         return list(self.project_cache)

@@ -14,8 +14,7 @@ class Project:
         return "Name: %s; Description: %s" % (self.name, self.description)
 
     def __eq__(self, other):
-        return (
-                self.name == other.name and self.description == other.description)
+        return self.name == other.name and (self.id is None or other.id is None or self.id == other.id)
 
     def id_or_max(self):
         if self.id:
